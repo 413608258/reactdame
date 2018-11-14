@@ -1,6 +1,10 @@
+/*
+  React是 React核心库
+  ReactDOM 提供与DOM 相关的功能
+*/
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+//import './index.css';//css可以删掉
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
