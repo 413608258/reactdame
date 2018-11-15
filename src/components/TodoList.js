@@ -1,62 +1,90 @@
 import React from 'react';
 import '../assets/css/index.css';
 
-class TodoList extends React.Component{
+class TodoList1 extends React.Component{
 
     constructor(props){
         super(props);
 
         this.state = {
-          list: [],
+          list: [
+              {
+                  titile: '录制ionic',
+                  checked: true
+              },
+              {
+                  titile: '录制nodejs',
+                  checked: false
+              },
+              {
+                  titile: '录制vue',
+                  checked: false
+              },
+          ]
         };
     }
 
     addData = ()=>{
-        //alert(this.refs.title.value);
-        var tempList = this.state.list;
-        tempList.push(this.refs.title.value);
-
-        this.refs.title.value = '';
-        this.setState({
-            list: tempList,
-        });
 
     }
 
-    removeData = (key)=>{
-        //alert(key);
-        var tempList = this.state.list;
-        tempList.splice(key, 1);
-
+    handelUp = (key)=>{
+        var tplist = this.state.list;
+        tplist[key].checked = !this.state.list[key].checked;
         this.setState({
-            list: tempList,
+            list: tplist,
         });
+
     }
 
     render(){
         return (
             <div>
-                <h2>React TodoList 案例演示</h2>
-                <br/>
-
-                <input ref="title" type="text"/> <button onClick={this.addData}>增加+</button>
+                <h2>代办事件</h2>
 
                 <br/>
-                <ul className="list">
-                    {
-                        this.state.list.map((value, key)=>{
-                            return (
-                                <li key={key}>{value}--- <button onClick={this.removeData.bind(this, key)}>删除</button></li>
+                <ul>
+                {
+                    this.state.list.map((value, key) =>{
+
+                        if (!value.checked) {
+                            return(
+                                <li>
+                                    <input type="checkbox" checked={value.checked}/>
+                                    {value.titile}
+
+                                    <button onClick={this.handelUp.bind(this, key)}>删除</button>
+                                </li>
                             )
-                        })
-                    }
+                        }
 
+                    })
+                }
                 </ul>
+                <h2>已完结事件</h2>
+                <ul>
+                {
+                    this.state.list.map((value, key) =>{
 
+                        if (value.checked) {
+                            return(
+                                <li>
+                                    <input type="checkbox" checked={value.checked}/>
+
+                                    {value.titile}
+
+                                    <button onClick={this.handelUp.bind(this, key)}>删除</button>
+                                </li>
+                            )
+                        }
+
+                    })
+                }
+                </ul>
             </div>
         );
     }
 
 
 }
-export default TodoList;
+export default TodoList1;
